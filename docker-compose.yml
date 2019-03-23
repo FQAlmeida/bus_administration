@@ -1,0 +1,63 @@
+version: "3"
+
+services:
+  # smtp:
+  #   image: namshi/smtp
+  #   container_name: smtp_relay
+  #   restart: always
+  #   ports:
+  #     - "25:25"
+  #   environment:
+  #     GMAIL_USER: otavioalmeida650@gmail.com
+  #     GMAIL_PASSWORD: zdhotvcgduboebgz
+
+  db:
+    container_name: database
+    restart: always
+    environment:
+      POSTGRES_DB: web_server_db
+      POSTGRES_USER: otavio
+      POSTGRES_PASSWORD: Smile@435BMI
+      POSTGRES_DATA: /var/lib/postgresql/data/pgdata
+    build:
+      context: .
+      dockerfile: DockerfileDB
+    volumes:
+      - db-data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+
+  adminer:
+    image: adminer
+    container_name: adminer
+    restart: always
+    ports:
+      - 8080:8081
+    depends_on:
+      - db
+
+  web:
+    build: .
+    container_name: web_service
+    command: python3 manage.py runserver 0.0.0.0:8000
+    volumes:
+      - .:/code
+    ports:
+      - "8000:8000"
+    depends_on:
+      - adminer
+      - db
+      # - smtp
+      # - redis
+    # stdin_open: true
+    # tty: true
+  
+  # redis:
+  #   image: redis:latest
+  #   container_name: redis
+  #   ports:
+  #    - '6379:6379'
+
+volumes:
+  db-data:
+    driver: local

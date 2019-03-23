@@ -1,0 +1,17 @@
+<div>
+    <p>Trades</p>
+    {% for trade in trades %}
+
+        {% for passage in trade.passages.all %}
+            <p> 
+                {{trade.id}}
+                {{trade.date}}
+                {{passage.passager}}
+                {{passage.price}}
+                {{passage.travel.route}}
+                {{passage.travel.bus}}
+                {{passage.travel.date}}
+            </p>
+        {% endfor %}
+    {% endfor %}
+</div>
