@@ -1,17 +1,39 @@
+{% load static %}
+<head>
+    <link rel="stylesheet" href="{% static 'bus_control/css/style.css' %}"
+</head>
+<body>
 <div>
-    <p>Trades</p>
+    <h1 id="page_title">Trades</h1>
     {% for trade in trades %}
-
+    <div class="trade">
+        <p>
+        {{trade.id}}
+        </p>
+        <p>
+        {{trade.total}}
+        {{trade.date}}
+        <p>
         {% for passage in trade.passages.all %}
+        <div class="passage">
             <p> 
-                {{trade.id}}
-                {{trade.date}}
                 {{passage.passager}}
+            </p>
+            <p>
                 {{passage.price}}
+            </p>
+            <p>
                 {{passage.travel.route}}
+            </p>
+            <p>
                 {{passage.travel.bus}}
+            </p>
+            <p>
                 {{passage.travel.date}}
             </p>
+        </div>
         {% endfor %}
+    </div>
     {% endfor %}
 </div>
+</body>

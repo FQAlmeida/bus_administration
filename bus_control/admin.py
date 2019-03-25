@@ -1,6 +1,7 @@
 from django.contrib import admin
 
 from .models import (Passager, Bus, Route, Travel, Passage, Trade)
+from .forms import (TradeForm)
 
 # Register your models here.
 
