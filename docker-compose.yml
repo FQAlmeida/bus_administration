@@ -1,18 +1,8 @@
 version: "3"
 
 services:
-  # smtp:
-  #   image: namshi/smtp
-  #   container_name: smtp_relay
-  #   restart: always
-  #   ports:
-  #     - "25:25"
-  #   environment:
-  #     GMAIL_USER: otavioalmeida650@gmail.com
-  #     GMAIL_PASSWORD: zdhotvcgduboebgz
-
-  db:
-    container_name: database
+  bus_db:
+    container_name: bus_database
     restart: always
     environment:
       POSTGRES_DB: web_server_db
@@ -27,26 +17,26 @@ services:
     ports:
       - "5432:5432"
 
-  adminer:
+  bus_adminer:
     image: adminer
-    container_name: adminer
+    container_name: bus_adminer
     restart: always
     ports:
       - 8080:8081
     depends_on:
-      - db
+      - bus_db
 
-  web:
+  bus_web:
     build: .
-    container_name: web_service
+    container_name: bus_web_service
     command: python3 manage.py runserver 0.0.0.0:8000
     volumes:
       - .:/code
     ports:
       - "8000:8000"
     depends_on:
-      - adminer
-      - db
+      - bus_adminer
+      - bus_db
       # - smtp
       # - redis
     # stdin_open: true

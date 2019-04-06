@@ -25,7 +25,7 @@ SECRET_KEY = 'gio)!iz#4m)u!zqwsn70^72l(2(ml6$yjln4is4&@f%@5@4ssl'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["192.168.0.24"]
 
 
 # Application definition
@@ -88,7 +88,7 @@ WSGI_APPLICATION = 'bus_administration.wsgi.application'
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.postgresql",
-        "HOST": "db",
+        "HOST": "bus_db",
         "NAME": "web_server_db",
         "USER": "otavio",
         "PASSWORD": "Smile@435BMI",
